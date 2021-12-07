@@ -40,6 +40,7 @@ public class StudentService {
         studentRepository.deleteById(studentId);
     }
 
+    //Update name or email
     @Transactional
     public void updateStudent(Long studentId, String name, String email) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new IllegalStateException(
