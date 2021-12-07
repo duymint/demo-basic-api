@@ -1,4 +1,5 @@
-package com.example.demoapi11.student;
+package com.example.demoapi11.repository;
+import com.example.demoapi11.student.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("SELECT s FROM Student s WHERE s.name like %?1%")
     List<Student> findStudentByName(String name);
+
 }

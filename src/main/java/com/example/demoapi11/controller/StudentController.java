@@ -1,5 +1,9 @@
-package com.example.demoapi11.student;
+package com.example.demoapi11.controller;
 
+import com.example.demoapi11.service.StudentService;
+import com.example.demoapi11.student.Student;
+import com.example.demoapi11.student.StudentDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/student")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentController {
 
     private final StudentService studentService;
@@ -17,7 +22,7 @@ public class StudentController {
         this.studentService = studentService;
     }
     @GetMapping
-    public List<Student> getStudents( @RequestParam(required = false) String name) {
+    public List<StudentDTO> getStudents(@RequestParam(required = false) String name) {
         return studentService.getStudents(name);
     }
 
@@ -39,6 +44,15 @@ public class StudentController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String email){
             studentService.updateStudent(studentId, name, email);
+    }
+    @GetMapping(path = "/no-name")
+    public List<StudentDTO> getStudentsWithoutName(){
+        return studentService.getStudentsWithoutName();
+    }
+
+    @GetMapping(path = "/dob-mail")
+    public List<StudentDTO> getStudentsWithDOB(){
+       return studentService.getStudentsWithDOB();
     }
 }
 
