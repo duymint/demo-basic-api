@@ -88,7 +88,7 @@ public class StudentService {
         return result;
     }
 
-    public List<StudentDTO> getStudentsWithoutName() {
+    public List<StudentDTO> getStudentsWitName() {
         List<StudentDTO> dtos = studentRepository.findAll()
                                                  .stream()
                                                  .map(student -> StudentMapper.getInstance().toDTO(student))
@@ -98,8 +98,8 @@ public class StudentService {
         ) {
             StudentDTO tmp = new StudentDTO();
             tmp.setId(dto.getId());
-            tmp.setDob(dto.getDob());
-            tmp.setAge(dto.getAge());
+            tmp.setEmail(dto.getEmail());
+            tmp.setName(dto.getName());
             result.add(tmp);
         }
         return result;
