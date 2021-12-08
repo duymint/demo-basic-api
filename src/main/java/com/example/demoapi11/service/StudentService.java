@@ -5,9 +5,13 @@ import com.example.demoapi11.student.Student;
 import com.example.demoapi11.repository.StudentRepository;
 import com.example.demoapi11.student.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +22,7 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private StudentRepository studentRepository;
+    int count = 0;
     @Autowired
     public StudentService(StudentRepository studentRepository){
         this.studentRepository = studentRepository;
@@ -88,7 +93,7 @@ public class StudentService {
         return result;
     }
 
-    public List<StudentDTO> getStudentsWithoutName() {
+    public List<StudentDTO> getStudentsWitName() {
         List<StudentDTO> dtos = studentRepository.findAll()
                                                  .stream()
                                                  .map(student -> StudentMapper.getInstance().toDTO(student))
@@ -98,10 +103,29 @@ public class StudentService {
         ) {
             StudentDTO tmp = new StudentDTO();
             tmp.setId(dto.getId());
-            tmp.setDob(dto.getDob());
-            tmp.setAge(dto.getAge());
+            tmp.setEmail(dto.getEmail());
+            tmp.setName(dto.getName());
             result.add(tmp);
         }
         return result;
     }
+
+    public void checkDOBWithQuartz() {
+        int currentMonth = LocalDate.now().getMonthValue();
+        int currentDay = LocalDate.now().getDayOfMonth();
+        List<Student> students = studentRepository.findStudentsByBirthday(currentDay, currentMonth);
+        if(!students.isEmpty()){
+            System.out.println("------Students Have Birthday Today-----");
+            for (Student student:students
+            ) {
+                System.out.print(student.getName());
+                System.out.print("     Date of birth:   ");
+                System.out.println(student.getDob());
+            }
+        }else {
+            System.out.println("------No One Has Birthday Today-----");
+        }
+    }
+
+
 }

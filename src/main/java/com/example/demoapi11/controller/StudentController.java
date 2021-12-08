@@ -45,9 +45,9 @@ public class StudentController {
             @RequestParam(required = false) String email){
             studentService.updateStudent(studentId, name, email);
     }
-    @GetMapping(path = "/no-name")
-    public List<StudentDTO> getStudentsWithoutName(){
-        return studentService.getStudentsWithoutName();
+    @GetMapping(path = "/mail-name")
+    public List<StudentDTO> getStudentsWitName(){
+        return studentService.getStudentsWitName();
     }
 
     @GetMapping(path = "/dob-mail")

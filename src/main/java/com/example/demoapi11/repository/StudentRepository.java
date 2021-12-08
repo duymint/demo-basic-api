@@ -15,4 +15,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student s WHERE s.name like %?1%")
     List<Student> findStudentByName(String name);
 
+    @Query("select s from Student s " +
+            "where day(s.dob) = ?1 " +
+            "and month(s.dob) = ?2 ")
+    List<Student> findStudentsByBirthday(int day, int month);
+
 }
