@@ -23,8 +23,7 @@ public class Student {
     private LocalDate dob;
     private String email;
     @Transient
-    private  Integer age;
-
+    private Integer age;
     public Student() {
     }
 
