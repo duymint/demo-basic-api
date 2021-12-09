@@ -1,0 +1,1 @@
+alter table `student` add column `is_deleted` boolean default true;
