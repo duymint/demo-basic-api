@@ -1,0 +1,1 @@
+alter table `student` modify `is_deleted` varchar(11);
