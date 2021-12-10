@@ -26,6 +26,10 @@ public class StudentController {
         return studentService.getStudents(name);
     }
 
+    @GetMapping(path = "{id}")
+    public StudentDTO findOneStudent(@PathVariable(required = true) Long id) {
+        return studentService.findStudentById(id);
+    }
 
     @PostMapping
     public ResponseEntity registerNewStudent(@RequestBody Student student){

@@ -1,12 +1,13 @@
 package com.example.demoapi11.student;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
 @Table
-public class Student {
+public class Student implements Serializable {
 
     @Id
     @SequenceGenerator(
