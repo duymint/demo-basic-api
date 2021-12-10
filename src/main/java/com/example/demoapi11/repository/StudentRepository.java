@@ -20,4 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "and month(s.dob) = ?2 ")
     List<Student> findStudentsByBirthday(int day, int month);
 
+    @Query("SELECT s FROM Student s WHERE s.id = ?1")
+    Optional<Student> findStudentById(Long id);
+
 }
